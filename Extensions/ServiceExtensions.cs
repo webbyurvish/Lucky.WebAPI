@@ -2,6 +2,10 @@
 using Lucky.WebAPI.Data.Models;
 using Lucky.WebAPI.ExceptionHandler;
 using Lucky.WebAPI.Logging;
+using Lucky.WebAPI.Repository;
+using Lucky.WebAPI.Repository.Contract;
+using Lucky.WebAPI.Service;
+using Lucky.WebAPI.Service.Contract;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +74,20 @@ namespace Lucky.WebAPI.Extensions
                 );
             });
         }
+        
+        public static void ConfigureServiceManager(this IServiceCollection services)
+        {
+            services.AddScoped<IServiceManager, ServiceManager>();
+        }
 
+        public static void ConfigureRepositoryManager(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+        }
+
+        public static void ConfigureMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(Program));
+        }
     }
 }

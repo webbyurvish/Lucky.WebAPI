@@ -30,6 +30,15 @@ builder.Services.ConfigureJwt(builder.Configuration);
 // configure CORS (Cross Origin Resource Sharing)
 builder.Services.ConfigureCors();
 
+// configure service manager
+builder.Services.ConfigureServiceManager();
+
+// configure repository manager
+builder.Services.ConfigureRepositoryManager();
+
+// configure mapper
+builder.Services.ConfigureMapper();
+
 
 var app = builder.Build();
 
