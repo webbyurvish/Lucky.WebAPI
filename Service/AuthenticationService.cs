@@ -33,10 +33,15 @@ namespace Lucky.WebAPI.Service
         {
             var user = _mapper.Map<LuckyUser>(userForRegistration);
 
+            List<string> userRoles = new List<string>()
+            {
+                "User"
+            };
+
             var result = await _userManager.CreateAsync(user, userForRegistration.Password);
 
             if (result.Succeeded)
-                await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
+                await _userManager.AddToRolesAsync(user, userRoles);
 
             return result;
         }
@@ -83,7 +88,8 @@ namespace Lucky.WebAPI.Service
         {
             var claims = new List<Claim>
          {
-             new Claim(ClaimTypes.Name, _user.UserName)
+             new Claim(ClaimTypes.Name, _user.UserName),
+             new Claim(ClaimTypes.Email, _user.Email),
          };
 
             var roles = await _userManager.GetRolesAsync(_user);
